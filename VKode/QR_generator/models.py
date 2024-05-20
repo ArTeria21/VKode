@@ -1,44 +1,7 @@
+from django.contrib.auth import get_user_model
 from django.db import models
-from uuid import uuid4
-from .model_validators import get_current_time, check_earlier_than_current, check_later_than_current
-from django.conf.global_settings import AUTH_USER_MODEL
-
-
-class UUIDMixin(models.Model):
-    """Миксин, добавляющий поле ID, содержащее UUID объекта"""
-    id = models.UUIDField(verbose_name='UUID объекта',
-                          default=uuid4,
-                          primary_key=True,
-                          editable=False)
-
-    class Meta:
-        abstract = True
-
-
-class CreatedMixin(models.Model):
-    """Миксин, добавляющий поле Created, содержащее время создания объекта"""
-    created = models.DateTimeField(verbose_name='Время создания объекта',
-                                   default=get_current_time,
-                                   editable=False,
-                                   validators=[check_earlier_than_current])
-
-    class Meta:
-        abstract = True
-
-
-class ModifiedMixin(models.Model):
-    """Миксин, добавляющий поле Modified, содержащее время последнего изменения объекта"""
-    modified = models.DateTimeField(verbose_name='Время изменения объекта',
-                                    default=get_current_time,
-                                    editable=False,
-                                    validators=[check_earlier_than_current])
-
-    def save(self, *args, **kwargs):
-        self.modified = get_current_time()
-        super().save(*args, **kwargs)
-
-    class Meta:
-        abstract = True
+from utils.model_validators import check_later_than_current
+from utils.model_mixins import UUIDMixin, CreatedMixin, ModifiedMixin
 
 
 class Category(UUIDMixin, CreatedMixin, ModifiedMixin):
@@ -57,51 +20,26 @@ class Category(UUIDMixin, CreatedMixin, ModifiedMixin):
         verbose_name_plural = 'категории QR кодов'
 
 
-class Client(UUIDMixin, CreatedMixin, ModifiedMixin):
-    """Модель, содержащая дополнительную информацию о пользователе"""
-    user = models.OneToOneField(AUTH_USER_MODEL,
-                                verbose_name='Аккаунт пользователя',
-                                null=False,
-                                blank=False,
-                                unique=True,
-                                on_delete=models.CASCADE)
-
-    @property
-    def username(self) -> str:
-        return self.user.username
-
-    @property
-    def email(self) -> str:
-        return self.user.email
-
-    def __str__(self) -> str:
-        return f'<client:{self.username}>'
-
-    class Meta:
-        db_table = 'Clients'
-        verbose_name = 'клиент'
-        verbose_name_plural = 'клиенты'
-
-
 class QRCode(UUIDMixin, CreatedMixin, ModifiedMixin):
     """Модель, содержащая информацию о QR коде"""
     code_name = models.CharField(verbose_name='Название QR кода',
                                  max_length=255,
                                  null=False,
                                  blank=False)
-    owner = models.ForeignKey(to=Client,
+    owner = models.ForeignKey(to=get_user_model(),
                               verbose_name='Создатель QR кода',
-                              on_delete=models.CASCADE,
-                              null=False,
-                              blank=False)
+                              on_delete=models.SET_NULL,
+                              null=True,
+                              blank=True)
     direction = models.URLField(verbose_name='URL адрес, куда ведёт QR код',
                                 null=False,
                                 blank=False)
     category = models.ForeignKey(to=Category,
                                  verbose_name='Категория QR кода',
-                                 on_delete=models.SET_NULL,
+                                 on_delete=models.SET_DEFAULT,
                                  null=True,
-                                 blank=True)
+                                 blank=True,
+                                 default='Категория не выбрана')
     end_time = models.DateTimeField(verbose_name='Время окончания работы QR кода',
                                     null=True,
                                     blank=True,

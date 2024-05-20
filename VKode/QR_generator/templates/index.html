@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Welcome to QR Code Generator</h1>
+    <p>Create and manage your QR codes easily.</p>
+    {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}">Go to Dashboard</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login to create a QR code</a>
+    {% endif %}
+</body>
+</html>

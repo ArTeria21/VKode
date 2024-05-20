@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class QrGeneratorConfig(AppConfig):
+class UsersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'QR_generator'
+    name = 'Users'

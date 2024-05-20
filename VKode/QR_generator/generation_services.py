@@ -21,3 +21,4 @@ def generate_qr_code(direction: str) -> str:
     qrcode.save(f'../qr_codes/{filename}',
                 scale=10)
     return f'../qr_codes/{filename}'
+
