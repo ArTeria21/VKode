@@ -1,6 +1,6 @@
 # views.py
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpRequest, HttpResponse
 from .forms import CreateQRCodeForm
 from .models import QRCode, Category
@@ -22,8 +22,9 @@ def create_qr_code(request: HttpRequest) -> HttpResponse:
             # Получаем текущего пользователя
             user = request.user
 
+            redirect_path = f'http://127.0.0.1:8000/{user.username}/{code_name}/'
             # Генерация QR кода и получение пути к файлу
-            path_to_file = generate_qr_code(direction)
+            path_to_file = generate_qr_code(redirect_path)
 
             # Создание записи о QR коде в базе данных
             qr_code = QRCode.objects.create(
@@ -43,6 +44,11 @@ def create_qr_code(request: HttpRequest) -> HttpResponse:
         'form': form
     }
     return render(request, 'generator/create_qr_code.html', context=data)
+
+def redirect_page(request: HttpRequest, username: str, qr_name: str) -> HttpResponse:
+    qr_code = get_object_or_404(QRCode, owner__username=username, code_name=qr_name)
+    return redirect(qr_code.direction)
+
 
 def dashboard(request: HttpRequest) -> HttpResponse:
     return HttpResponse('dashboard')
