@@ -1,15 +1,15 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login
-from django.shortcuts import render, redirect
+from django.contrib.auth import get_user_model
+from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
-from .forms import CreateQRCodeForm, UserCreationForm
-from .models import Client, QRCode, Category
+from .forms import CreateQRCodeForm
+from .models import QRCode, Category
 from .generation_services import generate_qr_code
 import os
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    return render(request, template_name='index.html')
+    return render(request, template_name='generator/index.html')
 
 @login_required
 def create_qr_code(request: HttpRequest) -> HttpResponse:
@@ -23,7 +23,7 @@ def create_qr_code(request: HttpRequest) -> HttpResponse:
 
             # Получаем текущего пользователя
             user = request.user
-            client = Client.objects.get(user=user)
+            client = get_user_model().objects.get(user=user)
 
             # Генерация QR кода и получение пути к файлу
             path_to_file = generate_qr_code(direction)
@@ -45,4 +45,7 @@ def create_qr_code(request: HttpRequest) -> HttpResponse:
         'title': 'Создание QR кода',
         'form': form
     }
-    return render(request, 'create_qr_code.html', context=data)
+    return render(request, 'generator/create_qr_code.html', context=data)
+
+def dashboard(request: HttpRequest) -> HttpResponse:
+    return HttpResponse('dashboard')

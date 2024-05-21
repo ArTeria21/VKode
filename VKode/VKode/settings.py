@@ -58,7 +58,8 @@ ROOT_URLCONF = 'VKode.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'Users', 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'Users', 'templates'),
+				os.path.join(BASE_DIR, 'QR_generator', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,3 +130,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = 'index'
+LOGIN_URL = 'users:html'
+LOGOUT_REDIRECT_URL = 'index'
