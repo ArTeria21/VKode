@@ -1,12 +1,10 @@
+# views.py
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import get_user_model
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from .forms import CreateQRCodeForm
 from .models import QRCode, Category
 from .generation_services import generate_qr_code
-import os
-
 
 def index(request: HttpRequest) -> HttpResponse:
     return render(request, template_name='generator/index.html')
@@ -23,7 +21,6 @@ def create_qr_code(request: HttpRequest) -> HttpResponse:
 
             # Получаем текущего пользователя
             user = request.user
-            client = get_user_model().objects.get(user=user)
 
             # Генерация QR кода и получение пути к файлу
             path_to_file = generate_qr_code(direction)
@@ -31,14 +28,14 @@ def create_qr_code(request: HttpRequest) -> HttpResponse:
             # Создание записи о QR коде в базе данных
             qr_code = QRCode.objects.create(
                 code_name=code_name,
-                owner=client,
+                owner=user,
                 direction=direction,
                 category=Category.objects.get(id=category_id) if category_id else None,
                 end_time=end_time,
                 path_to_file=path_to_file
             )
 
-            return HttpResponse(request, {'status':'success'})  # Перенаправляем на страницу успешного создания
+            return redirect('dashboard')  # Перенаправляем на страницу дашборда после успешного создания
     else:
         form = CreateQRCodeForm()
     data = {

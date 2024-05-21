@@ -18,7 +18,8 @@ def generate_qr_code(direction: str) -> str:
     random_number = randint(0, 1000)
 
     filename = f'{date}_{hours}_{minutes}_{seconds}_{random_number}_QR.png'
-    qrcode.save(f'../qr_codes/{filename}',
+    file_path = f'/home/artem/College/RPM/VKode/VKode/qr_codes/{filename}'
+    qrcode.save(file_path,
                 scale=10)
-    return f'../qr_codes/{filename}'
+    return file_path
 
