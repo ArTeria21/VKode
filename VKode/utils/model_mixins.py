@@ -19,7 +19,8 @@ class CreatedMixin(models.Model):
     created = models.DateTimeField(verbose_name='Время создания объекта',
                                    default=get_current_time,
                                    editable=False,
-                                   validators=[check_earlier_than_current])
+                                   validators=[check_earlier_than_current],
+                                   db_index=True)
 
     class Meta:
         abstract = True

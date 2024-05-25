@@ -39,8 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Users',
-    'QR_generator',
-    'QR_analyzer',
+    'QR_generator'
 ]
 
 MIDDLEWARE = [
@@ -132,5 +131,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'index'
-LOGIN_URL = 'users:html'
+LOGIN_URL = 'users:login'
 LOGOUT_REDIRECT_URL = 'index'

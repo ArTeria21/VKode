@@ -48,6 +48,9 @@ class QRCode(UUIDMixin, CreatedMixin, ModifiedMixin):
                                         editable=False,
                                         blank=False,
                                         null=False)
+    code_hash = models.TextField(verbose_name='Хэш из названия qr-кода и username пользователя',
+                                 max_length=544,
+                                 unique=True)
 
     def __str__(self) -> str:
         return f'<QR code: {self.code_name}>'
@@ -59,3 +62,16 @@ class QRCode(UUIDMixin, CreatedMixin, ModifiedMixin):
         constraints = [
             models.UniqueConstraint(fields=['code_name', 'owner'], name='unique_code_name_owner')
         ]
+
+class Transition(UUIDMixin, CreatedMixin, ModifiedMixin):
+    code = models.ForeignKey(to=QRCode,
+                             verbose_name='QR код, куда был осуществлён переход',
+                             on_delete=models.CASCADE,
+                             db_index=True)
+    user_agent = models.CharField(verbose_name='User_agent пользователя, перешедшего по коду',
+                                  max_length=1000,
+                                  null=False)
+    class Meta:
+        db_table = 'Transitions'
+        verbose_name = 'Переход по QR коду'
+        verbose_name_plural = 'Переходы по QR кодам'
