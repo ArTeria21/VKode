@@ -13,6 +13,7 @@
         <p><a href="{% url 'users:logout' %}">Logout</a></p>
     {% else %}
         <a href="{% url 'users:login' %}">Login to create a QR code</a>
+        <a href="{% url 'users:registration' %}">Or create an account</a>
     {% endif %}
 </body>
 </html>

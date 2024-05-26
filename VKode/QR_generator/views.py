@@ -5,9 +5,12 @@ from django.http import HttpRequest, HttpResponse
 from django.utils import timezone
 from .forms import CreateQRCodeForm
 from .models import QRCode, Category, Transition
-from .generation_services import create_redirect_code, create_list_of_codes
-import hashlib
-from datetime import datetime
+from .generation_services import create_redirect_code, create_list_of_codes, create_plot_from_qr, get_transitions_by_code
+
+import pandas as pd
+import plotly.express as px
+import plotly.io as pio
+
 
 def index(request: HttpRequest) -> HttpResponse:
     return render(request, template_name='generator/index.html')
@@ -73,3 +76,23 @@ def dashboard(request: HttpRequest) -> HttpResponse:
     }
         
     return render(request, context=data, template_name='generator/dashboard.html')
+
+def qr_code_statistics(request: HttpResponse, code_hash: str) -> HttpResponse:
+    qr_code = QRCode.objects.filter(code_hash=code_hash).first()
+    code_name = qr_code.code_name
+    created = qr_code.created
+    direction = qr_code.direction
+    owner = qr_code.owner.username
+    total_transitions = len(get_transitions_by_code(qr_code))
+    plot_html = create_plot_from_qr(qr_code)
+
+    data = {
+        'code_name': code_name,
+        'created': created,
+        'direction': direction,
+        'total_transitions': total_transitions,
+        'owner': owner,
+        'plot_html': plot_html
+    }
+
+    return render(request, template_name='generator/qr_code_page.html', context=data)

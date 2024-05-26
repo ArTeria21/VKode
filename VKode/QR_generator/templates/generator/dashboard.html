@@ -13,6 +13,7 @@
 			<p>Адрес: <a href="{{ qr.direction }}">{{ qr.direction }}</a></p>
 			<p>Категория: {{ qr.category}}</p>
 			<p>Активен до {{ qr.end_time }}</p>
+			<a href="http://127.0.0.1:8000/statistics/{{ qr.hash }}/">Статистика</a>
 			<hr>
 		</li>
 	{% endfor %}

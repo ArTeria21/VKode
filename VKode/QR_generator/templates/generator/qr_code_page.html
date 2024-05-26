@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ code_name }}</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+	<a href="{% url 'dashboard' %}">Вернуться к другим кодам</a>
+    <h1>QR код {{ code_name }}</h1>
+    <ul>
+        <li>Код был создан {{ created }}</li>
+        <li>QR код ведёт на страницу {{ direction }}</li>
+        <li>Всего было совершено {{ total_transitions }} переходов</li>
+        <li>Владелец кода: {{ owner }}</li>
+    </ul>
+    <div>{{ plot_html|safe }}</div>
+</body>
+</html>
