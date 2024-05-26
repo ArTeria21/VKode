@@ -7,6 +7,7 @@
 <body>
 	<a href="{% url 'dashboard' %}">Вернуться к другим кодам</a>
     <h1>QR код {{ code_name }}</h1>
+    <img src="{{image_path}}" alt="QR код {{code_name}}" width="200" height="200">
     <ul>
         <li>Код был создан {{ created }}</li>
         <li>QR код ведёт на страницу {{ direction }}</li>

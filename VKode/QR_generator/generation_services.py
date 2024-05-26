@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 import segno
 from datetime import datetime
 from random import randint
@@ -30,7 +31,7 @@ def generate_qr_code(direction: str) -> str:
     random_number = randint(0, 1000)
 
     filename = f'{date}_{hours}_{minutes}_{seconds}_{random_number}_QR.png'
-    file_path = f'/home/artem/College/RPM/VKode/VKode/qr_codes/{filename}'
+    file_path = f'/home/artem/College/RPM/VKode/VKode/media/qr_codes/{filename}'
     qrcode.save(file_path,
                 scale=10)
     return file_path
@@ -40,7 +41,6 @@ def create_redirect_code(username, code_name) -> tuple[str]:
     link = create_redirect_url(code_hash)
     qr_path = generate_qr_code(link)
     return code_hash, qr_path
-
 
 def create_list_of_codes(request: HttpRequest) -> list[dict]:
     user = request.user

@@ -6,6 +6,7 @@ from django.utils import timezone
 from .forms import CreateQRCodeForm
 from .models import QRCode, Category, Transition
 from .generation_services import create_redirect_code, create_list_of_codes, create_plot_from_qr, get_transitions_by_code
+from django.conf import settings
 
 import pandas as pd
 import plotly.express as px
@@ -30,6 +31,7 @@ def create_qr_code(request: HttpRequest) -> HttpResponse:
 
             # Генерация QR кода, получение пути к файлу и хеша
             code_hash, path_to_file = create_redirect_code(user.username, code_name)
+            path_to_file = '/'.join(path_to_file.split('/')[-2:])
 
             # Создание записи о QR коде в базе данных
             qr_code = QRCode.objects.create(
@@ -92,7 +94,8 @@ def qr_code_statistics(request: HttpResponse, code_hash: str) -> HttpResponse:
         'direction': direction,
         'total_transitions': total_transitions,
         'owner': owner,
-        'plot_html': plot_html
+        'plot_html': plot_html,
+        'image_path': settings.MEDIA_URL + qr_code.path_to_file
     }
 
     return render(request, template_name='generator/qr_code_page.html', context=data)
