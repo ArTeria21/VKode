@@ -71,6 +71,9 @@ class Transition(UUIDMixin, CreatedMixin, ModifiedMixin):
     user_agent = models.CharField(verbose_name='User_agent пользователя, перешедшего по коду',
                                   max_length=1000,
                                   null=False)
+    ip_address = models.GenericIPAddressField(verbose_name='IP пользователя, перешедшего по коду',
+                                       null=True,
+                                       blank=True)
     class Meta:
         db_table = 'Transitions'
         verbose_name = 'Переход по QR коду'
