@@ -59,7 +59,7 @@ def redirect_page(request: HttpRequest, hash: str) -> HttpResponse:
         return redirect(qr_code.direction)
     
     if qr_code.end_time and qr_code.end_time < timezone.now():
-        return HttpResponse('Код больше не работает (((')
+        return render(request, template_name='generator/code_expired.html')
     
     Transition.objects.create(
     code=qr_code,
@@ -76,7 +76,6 @@ def dashboard(request: HttpRequest) -> HttpResponse:
         'username' : request.user.username,
         'qr_codes': params_to_dashboard
     }
-        
     return render(request, context=data, template_name='generator/dashboard.html')
 
 def qr_code_statistics(request: HttpResponse, code_hash: str) -> HttpResponse:
@@ -97,5 +96,4 @@ def qr_code_statistics(request: HttpResponse, code_hash: str) -> HttpResponse:
         'plot_html': plot_html,
         'image_path': settings.MEDIA_URL + qr_code.path_to_file
     }
-
     return render(request, template_name='generator/qr_code_page.html', context=data)

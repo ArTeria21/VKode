@@ -58,7 +58,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'Users', 'templates'),
-				os.path.join(BASE_DIR, 'QR_generator', 'templates')],
+				os.path.join(BASE_DIR, 'QR_generator', 'templates'),
+				'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

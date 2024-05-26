@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-</head>
+{% extends "base.html" %}
+{% block content %}
 <body>
 	<h1>QR коды пользователя {{ username }}</h1>
 	<ul>
 	{% for qr in qr_codes %}
 		<li>
 			<h2>{{ qr.code_name }}</h2>
+			<img src="{{qr.image_path}}" alt="QR код {{qr.code_name}}" width="200" height="200">
 			<p>Адрес: <a href="{{ qr.direction }}">{{ qr.direction }}</a></p>
 			<p>Категория: {{ qr.category}}</p>
 			<p>Активен до {{ qr.end_time }}</p>
@@ -18,5 +15,4 @@
 		</li>
 	{% endfor %}
 	</ul>
-</body>
-</html>
+{% endblock content %}

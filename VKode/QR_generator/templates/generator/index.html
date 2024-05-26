@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block content %}
     <h1>Welcome to QR Code Generator</h1>
     <p>Create and manage your QR codes easily.</p>
     {% if user.is_authenticated %}
@@ -12,8 +7,7 @@
         <p><a href="{% url 'create_code' %}">Create new QR code</a></p>
         <p><a href="{% url 'users:logout' %}">Logout</a></p>
     {% else %}
-        <a href="{% url 'users:login' %}">Login to create a QR code</a>
-        <a href="{% url 'users:registration' %}">Or create an account</a>
+        <p><a href="{% url 'users:login' %}">Login to create a QR code</a></p>
+        <p><a href="{% url 'users:registration' %}">Or create an account</a></p>
     {% endif %}
-</body>
-</html>
+{% endblock content %}

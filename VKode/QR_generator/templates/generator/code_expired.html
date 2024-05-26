@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Срок действия кода истёк</h1>
+    <p>Больше по нему нельзя переходить...</p>
+	 <h2>Но ты можешь создать новый!</h2>
+	 <p><a href="{% url 'users:login' %}">Вход в аккаунт</a></p>
+	 <p><a href="{% url 'users:registration' %}">Регистрация</a></p>
+	 <p><a href="{% url 'index' %}">Главная страница</a></p>
+{% endblock content %}

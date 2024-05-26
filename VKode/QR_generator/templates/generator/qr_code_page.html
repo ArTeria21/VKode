@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ code_name }}</title>
+{% extends "base.html" %}
+{% block content %}
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-</head>
-<body>
-	<a href="{% url 'dashboard' %}">Вернуться к другим кодам</a>
     <h1>QR код {{ code_name }}</h1>
     <img src="{{image_path}}" alt="QR код {{code_name}}" width="200" height="200">
     <ul>
@@ -15,5 +10,4 @@
         <li>Владелец кода: {{ owner }}</li>
     </ul>
     <div>{{ plot_html|safe }}</div>
-</body>
-</html>
+{% endblock content %}

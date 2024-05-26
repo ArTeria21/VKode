@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 import segno
 from datetime import datetime
@@ -52,7 +53,8 @@ def create_list_of_codes(request: HttpRequest) -> list[dict]:
                     'direction':code.direction,
                     'category':code.category,
                     'end_time':code.end_time,
-                    'hash' : code.code_hash
+                    'hash' : code.code_hash,
+                    'image_path':settings.MEDIA_URL + code.path_to_file
                     }
         params_to_dashboard.append(temporary)
     return params_to_dashboard
