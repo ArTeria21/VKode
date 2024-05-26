@@ -5,12 +5,12 @@
     <title>Dashboard</title>
 </head>
 <body>
-	<h1>QR коды пользователя {{ usename }}</h1>
+	<h1>QR коды пользователя {{ username }}</h1>
 	<ul>
 	{% for qr in qr_codes %}
 		<li>
 			<h2>{{ qr.code_name }}</h2>
-			<p>Адрес: {{ qr.direction }}</p>
+			<p>Адрес: <a href="{{ qr.direction }}">{{ qr.direction }}</a></p>
 			<p>Категория: {{ qr.category}}</p>
 			<p>Активен до {{ qr.end_time }}</p>
 			<hr>

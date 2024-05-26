@@ -5,7 +5,7 @@ from django.http import HttpRequest, HttpResponse
 from django.utils import timezone
 from .forms import CreateQRCodeForm
 from .models import QRCode, Category, Transition
-from .generation_services import generate_qr_code
+from .generation_services import create_redirect_code, create_list_of_codes
 import hashlib
 from datetime import datetime
 
@@ -24,11 +24,9 @@ def create_qr_code(request: HttpRequest) -> HttpResponse:
 
             # Получаем текущего пользователя
             user = request.user
-            code_hash = hashlib.sha3_256(f'{user.username} {code_name}'.encode()).hexdigest()
 
-            redirect_path = f'http://127.0.0.1:8000/code/{code_hash}/'
-            # Генерация QR кода и получение пути к файлу
-            path_to_file = generate_qr_code(redirect_path)
+            # Генерация QR кода, получение пути к файлу и хеша
+            code_hash, path_to_file = create_redirect_code(user.username, code_name)
 
             # Создание записи о QR коде в базе данных
             qr_code = QRCode.objects.create(
@@ -68,20 +66,9 @@ def redirect_page(request: HttpRequest, hash: str) -> HttpResponse:
 
 @login_required
 def dashboard(request: HttpRequest) -> HttpResponse:
-    user = request.user
-    username = user.username
-    qr_codes = QRCode.objects.filter(owner=user)
-    params_to_dashboard = []
-    for code in qr_codes:
-        temporary = {'code_name':code.code_name,
-                        'direction':code.direction,
-                        'category':code.category,
-                        'end_time':code.end_time,
-                        }
-        params_to_dashboard.append(temporary)
-    
+    params_to_dashboard = create_list_of_codes(request)
     data = {
-        'username': username,
+        'username' : request.user.username,
         'qr_codes': params_to_dashboard
     }
         
