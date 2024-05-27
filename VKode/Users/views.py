@@ -11,12 +11,14 @@ from . import forms
 class LoginUser(LoginView):
     form_class = forms.UserLogin
     template_name = 'users/login.html'
+    title = 'Авторизация'
 
 
 class RegisterUser(CreateView):
     form_class = forms.UserRegistration
     template_name = 'users/register.html'
     success_url = reverse_lazy('index')
+    title = 'Регистрация'
 
 
 def logout_user(request: HttpRequest) -> HttpResponse:

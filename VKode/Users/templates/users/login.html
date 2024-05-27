@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Вход</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Войти</button>
-    </form>
+<div class="create-qr-header">
+    <div class="container">
+        <h1>{{ title }}</h1>
+    </div>
+</div>
+<div class="create-qr-content">
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Войти</button>
+        </form>
+    </div>
+</div>
 {% endblock content %}

@@ -1,13 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <h1>QR код {{ code_name }}</h1>
-    <img src="{{image_path}}" alt="QR код {{code_name}}" width="200" height="200">
-    <ul>
-        <li>Код был создан {{ created }}</li>
-        <li>QR код ведёт на страницу {{ direction }}</li>
-        <li>Всего было совершено {{ total_transitions }} переходов</li>
-        <li>Владелец кода: {{ owner }}</li>
-    </ul>
-    <div>{{ plot_html|safe }}</div>
+<div class="qr-info-header">
+    <div class="container">
+        <h1>QR код: {{ code_name }}</h1>
+        <img src="{{image_path}}" alt="QR код {{code_name}}" class="qr-image">
+    </div>
+</div>
+<div class="qr-info-content">
+    <div class="container">
+        <ul class="qr-details">
+            <li><strong>Код был создан:</strong> {{ created }}</li>
+            <li><strong>QR код ведёт на страницу:</strong> <a href="{{ direction }}">{{ direction }}</a></li>
+            <li><strong>Всего было совершено переходов:</strong> {{ total_transitions }}</li>
+            <li><strong>Владелец кода:</strong> {{ owner }}</li>
+        </ul>
+        <div class="qr-stats">
+            {{ plot_html|safe }}
+        </div>
+    </div>
+</div>
 {% endblock content %}

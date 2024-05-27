@@ -1,18 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-<body>
-	<h1>QR коды пользователя {{ username }}</h1>
-	<ul>
-	{% for qr in qr_codes %}
-		<li>
-			<h2>{{ qr.code_name }}</h2>
-			<img src="{{qr.image_path}}" alt="QR код {{qr.code_name}}" width="200" height="200">
-			<p>Адрес: <a href="{{ qr.direction }}">{{ qr.direction }}</a></p>
-			<p>Категория: {{ qr.category}}</p>
-			<p>Активен до {{ qr.end_time }}</p>
-			<a href="http://127.0.0.1:8000/statistics/{{ qr.hash }}/">Статистика</a>
-			<hr>
-		</li>
-	{% endfor %}
-	</ul>
+<div class="dashboard-header">
+    <div class="container">
+        <h1>QR коды пользователя {{ username }}</h1>
+        <p>Здесь вы можете управлять своими QR-кодами, просматривать статистику и создавать новые коды.</p>
+        <a class="btn" href="{% url 'create_code' %}">Создать новый QR-код</a>
+    </div>
+</div>
+<div class="dashboard-content">
+    <div class="container">
+        <ul class="qr-code-list">
+        {% for qr in qr_codes %}
+            <li class="qr-code-item">
+                <h2>{{ qr.code_name }}</h2>
+                <img src="{{qr.image_path}}" alt="QR код {{qr.code_name}}" width="200" height="200">
+                <p>Адрес: <a href="{{ qr.direction }}">{{ qr.direction }}</a></p>
+                <p>Категория: {{ qr.category }}</p>
+                <p>Активен до {{ qr.end_time }}</p>
+                <a class="btn" href="{% url 'statistics' qr.hash %}">Статистика</a>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock content %}

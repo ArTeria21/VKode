@@ -1,0 +1,408 @@
+body {
+	font-family: Helvetica, Arial, sans-serif;
+	color: #333;
+	background-color: #fff;
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	background-color: #0077FF;
+	padding: 20px 0;
+	color: white;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1000;
+}
+
+header .container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+header .logo a {
+	color: white;
+	text-decoration: none;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+header nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+}
+
+header nav ul li {
+	margin-left: 20px;
+}
+
+header nav ul li a {
+	color: white;
+	text-decoration: none;
+	font-size: 1em;
+}
+
+main .container {
+	margin-top: 30px;
+	padding: 20px;
+}
+
+footer {
+	background-color: #f1f1f1;
+	text-align: center;
+	padding: 10px 0;
+	margin-top: 20px;
+}
+
+footer .container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+/* Стили для главной страницы */
+
+.hero {
+	background-color: #0077FF;
+	color: white;
+	padding: 60px 0;
+	text-align: center;
+}
+
+.hero .container {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.hero h1 {
+	font-size: 2.5em;
+	margin-bottom: 20px;
+}
+
+.hero p {
+	font-size: 1.2em;
+	margin-bottom: 40px;
+}
+
+.hero .buttons {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+}
+
+.hero .btn {
+	background-color: white;
+	color: #0077FF;
+	padding: 10px 20px;
+	text-decoration: none;
+	font-size: 1em;
+	border-radius: 5px;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.hero .btn:hover {
+	background-color: #116eca;
+	color: white;
+}
+
+.features {
+	background-color: #f8f8f8;
+	padding: 60px 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.features .container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	max-width: 1600px;
+	margin: 0 auto;
+}
+
+.features h2 {
+	font-size: 2em;
+	margin-bottom: 40px;
+	text-align: left;
+	margin-right: 50px;
+}
+
+.features-list {
+	list-style: none;
+	padding: 0;
+	font-size: 1.2em;
+	text-align: left;
+}
+
+.features-list li {
+	margin-bottom: 20px;
+	position: relative;
+	padding-left: 30px;
+}
+
+.features-list li::before {
+	content: "✔";
+	color: #0077FF;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.feature-image {
+	max-width: 400px;
+	margin-left: 40px;
+	border-radius: 10px;
+}
+
+/* Стили для страницы dashboard */
+
+.dashboard-header {
+	background-color: #0077FF;
+	color: white;
+	padding: 60px 0;
+	text-align: center;
+}
+
+.dashboard-header .container {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.dashboard-header h1 {
+	font-size: 2.5em;
+	margin-bottom: 20px;
+}
+
+.dashboard-header p {
+	font-size: 1.2em;
+	margin-bottom: 20px;
+}
+
+.dashboard-header .btn {
+	background-color: white;
+	color: #0077FF;
+	padding: 10px 20px;
+	text-decoration: none;
+	font-size: 1em;
+	border-radius: 5px;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.dashboard-header .btn:hover {
+	background-color: #116eca;
+	color: white;
+}
+
+.dashboard-content {
+	padding: 60px 0;
+	background-color: #f8f8f8;
+}
+
+.dashboard-content .container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.qr-code-list {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 20px;
+	justify-content: space-between;
+}
+
+.qr-code-item {
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	text-align: center;
+	flex: 1 1 calc(33.333% - 20px);
+	max-width: calc(33.333% - 20px);
+	box-sizing: border-box;
+}
+
+.qr-code-item h2 {
+	font-size: 1.5em;
+	margin-bottom: 10px;
+}
+
+.qr-code-item img {
+	margin-bottom: 10px;
+	max-width: 100%;
+	height: auto;
+}
+
+.qr-code-item p {
+	font-size: 1em;
+	margin-bottom: 20px;
+	word-break: break-all;
+}
+
+.qr-code-item .btn {
+	background-color: #0077FF;
+	color: white;
+	padding: 10px 20px;
+	text-decoration: none;
+	font-size: 1em;
+	border-radius: 5px;
+	transition: background-color 0.3s, color 0.3s;
+	margin-bottom: 20px;
+}
+
+.qr-code-item .btn:hover {
+	background-color: white;
+	color: #0077FF;
+}
+
+/* Стили для страницы информации и статистики по QR-кодам */
+
+.qr-info-header {
+	background-color: #0077FF;
+	color: white;
+	padding: 60px 0;
+	text-align: center;
+}
+
+.qr-info-header .container {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.qr-info-header h1 {
+	font-size: 2.5em;
+	margin-bottom: 20px;
+}
+
+.qr-info-header .qr-image {
+	margin-top: 20px;
+	max-width: 200px;
+	height: auto;
+	border-radius: 10px;
+}
+
+.qr-info-content {
+	padding: 60px 0;
+	background-color: #f8f8f8;
+}
+
+.qr-info-content .container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.qr-details {
+	list-style: none;
+	padding: 0;
+	font-size: 1.2em;
+	margin-bottom: 40px;
+}
+
+.qr-details li {
+	margin-bottom: 20px;
+}
+
+.qr-details li strong {
+	color: #0077FF;
+}
+
+.qr-details a {
+	color: #0077FF;
+	text-decoration: none;
+}
+
+.qr-details a:hover {
+	text-decoration: underline;
+}
+
+.qr-stats {
+	background-color: white;
+	padding: 20px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* Стили для страницы создания QR-кода */
+
+.create-qr-header {
+	background-color: #0077FF;
+	color: white;
+	padding: 60px 0;
+	text-align: center;
+}
+
+.create-qr-header .container {
+	max-width: 800px;
+	margin: 0 auto;
+}
+
+.create-qr-header h1 {
+	font-size: 2.5em;
+	margin-bottom: 20px;
+}
+
+.create-qr-content {
+	padding: 60px 0;
+	background-color: #f8f8f8;
+}
+
+.create-qr-content .container {
+	max-width: 800px;
+	margin: 0 auto;
+	background-color: white;
+	padding: 40px;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+form p {
+	margin-bottom: 20px;
+}
+
+form label {
+	font-size: 1.2em;
+	color: #333;
+}
+
+form input, form select, form textarea {
+	padding: 10px;
+	font-size: 1em;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	margin-top: 5px;
+}
+
+form input[type="datetime-local"] {
+	padding: 8px;
+}
+
+form button {
+	background-color: #0077FF;
+	color: white;
+	padding: 10px 20px;
+	font-size: 1em;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
+	margin-top: 20px;
+}
+
+form button:hover {
+	background-color: white;
+	color: #0077FF;
+	border: 1px solid #0077FF;
+}

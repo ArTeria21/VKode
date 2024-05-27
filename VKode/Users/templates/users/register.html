@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Регистрация</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Зарегистрироваться</button>
-    </form>
+<div class="create-qr-header">
+    <div class="container">
+        <h1>{{ title }}</h1>
+    </div>
+</div>
+<div class="create-qr-content">
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>
 {% endblock content %}
