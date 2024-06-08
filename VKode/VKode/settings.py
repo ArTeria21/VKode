@@ -141,3 +141,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = 'users:login'
 LOGOUT_REDIRECT_URL = 'index'
+
+TEST_RUNNER = 'testing.runner.PostgresSchemaRunner'

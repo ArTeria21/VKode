@@ -78,3 +78,4 @@ class Transition(UUIDMixin, CreatedMixin, ModifiedMixin):
         db_table = 'Transitions'
         verbose_name = 'Переход по QR коду'
         verbose_name_plural = 'Переходы по QR кодам'
+
