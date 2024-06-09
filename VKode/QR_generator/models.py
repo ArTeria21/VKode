@@ -12,7 +12,7 @@ class Category(UUIDMixin, CreatedMixin, ModifiedMixin):
                                 blank=False)
 
     def __str__(self) -> str:
-        return f'<category: {self.category}>'
+        return self.category
 
     class Meta:
         db_table = 'Categories'

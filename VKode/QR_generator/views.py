@@ -23,7 +23,7 @@ def create_qr_code(request: HttpRequest) -> HttpResponse:
         if form.is_valid():
             code_name = form.cleaned_data['code_name']
             direction = form.cleaned_data['direction']
-            category_id = form.cleaned_data.get('category')
+            category = form.cleaned_data.get('category')
             end_time = form.cleaned_data.get('end_time')
 
             # Получаем текущего пользователя
@@ -38,7 +38,7 @@ def create_qr_code(request: HttpRequest) -> HttpResponse:
                 code_name=code_name,
                 owner=user,
                 direction=direction,
-                category=Category.objects.get(id=category_id) if category_id else None,
+                category=category,
                 end_time=end_time,
                 path_to_file=path_to_file,
                 code_hash=code_hash
