@@ -7,7 +7,7 @@ body {
 }
 
 header {
-	background-color: #0077FF;
+	background-color: #0066ff;
 	padding: 20px 0;
 	color: white;
 	position: fixed;
@@ -68,17 +68,19 @@ footer .container {
 }
 
 /* Стили для главной страницы */
-
 .hero {
 	background-color: #0077FF;
 	color: white;
-	padding: 60px 0;
+	padding: 80px 0;
 	text-align: center;
+	width: 100vw;
+	margin-left: calc(-50vw + 50%);
 }
 
 .hero .container {
-	max-width: 800px;
-	margin: 0 auto;
+	width: 100%;
+	padding: 0 20px;
+	box-sizing: border-box;
 }
 
 .hero h1 {
@@ -169,6 +171,9 @@ footer .container {
 	color: white;
 	padding: 60px 0;
 	text-align: center;
+	width: 100vw;
+	margin-left: calc(-50vw + 50%);
+
 }
 
 .dashboard-header .container {
@@ -271,6 +276,8 @@ footer .container {
 	color: white;
 	padding: 60px 0;
 	text-align: center;
+	width: 100vw;
+	margin-left: calc(-50vw + 50%);
 }
 
 .qr-info-header .container {
@@ -337,6 +344,8 @@ footer .container {
 	color: white;
 	padding: 60px 0;
 	text-align: center;
+	width: 100vw;
+	margin-left: calc(-50vw + 50%);
 }
 
 .create-qr-header .container {
