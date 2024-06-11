@@ -4,15 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('QR_generator', '0001_initial'),
+        ("QR_generator", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='transition',
-            name='ip_address',
-            field=models.GenericIPAddressField(blank=True, null=True, verbose_name='IP пользователя, перешедшего по коду'),
+            model_name="transition",
+            name="ip_address",
+            field=models.GenericIPAddressField(
+                blank=True,
+                null=True,
+                verbose_name="IP пользователя, перешедшего по коду",
+            ),
         ),
     ]

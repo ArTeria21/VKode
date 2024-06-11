@@ -12,12 +12,18 @@
         <ul class="qr-code-list">
         {% for qr in qr_codes %}
             <li class="qr-code-item">
-                <h2>{{ qr.code_name }}</h2>
+                <div class="qr-code-header">
+                    <h2>{{ qr.code_name }}</h2>
+                </div>
                 <img src="{{qr.image_path}}" alt="QR код {{qr.code_name}}" width="200" height="200">
-                <p>Адрес: <a href="{{ qr.direction }}">{{ qr.direction }}</a></p>
-                <p>Категория: {{ qr.category }}</p>
-                <p>Активен до {{ qr.end_time }}</p>
-                <a class="btn" href="{% url 'statistics' qr.hash %}">Статистика</a>
+                <div class="qr-code-details">
+                    <p>Адрес: <a href="{{ qr.direction }}">{{ qr.direction }}</a></p>
+                    <p>Категория: {{ qr.category }}</p>
+                    <p>Активен до {{ qr.end_time }}</p>
+                </div>
+                <div class="qr-code-footer">
+                    <a class="btn" href="{% url 'statistics' qr.hash %}">Статистика</a>
+                </div>
             </li>
         {% endfor %}
         </ul>

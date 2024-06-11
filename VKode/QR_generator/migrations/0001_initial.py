@@ -8,7 +8,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -17,56 +16,197 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, verbose_name='UUID объекта')),
-                ('created', models.DateTimeField(db_index=True, default=utils.model_validators.get_current_time, editable=False, validators=[utils.model_validators.check_earlier_than_current], verbose_name='Время создания объекта')),
-                ('modified', models.DateTimeField(default=utils.model_validators.get_current_time, editable=False, validators=[utils.model_validators.check_earlier_than_current], verbose_name='Время изменения объекта')),
-                ('category', models.CharField(max_length=255, verbose_name='Название категории')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="UUID объекта",
+                    ),
+                ),
+                (
+                    "created",
+                    models.DateTimeField(
+                        db_index=True,
+                        default=utils.model_validators.get_current_time,
+                        editable=False,
+                        validators=[utils.model_validators.check_earlier_than_current],
+                        verbose_name="Время создания объекта",
+                    ),
+                ),
+                (
+                    "modified",
+                    models.DateTimeField(
+                        default=utils.model_validators.get_current_time,
+                        editable=False,
+                        validators=[utils.model_validators.check_earlier_than_current],
+                        verbose_name="Время изменения объекта",
+                    ),
+                ),
+                (
+                    "category",
+                    models.CharField(max_length=255, verbose_name="Название категории"),
+                ),
             ],
             options={
-                'verbose_name': 'категория QR кода',
-                'verbose_name_plural': 'категории QR кодов',
-                'db_table': 'Categories',
+                "verbose_name": "категория QR кода",
+                "verbose_name_plural": "категории QR кодов",
+                "db_table": "Categories",
             },
         ),
         migrations.CreateModel(
-            name='QRCode',
+            name="QRCode",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, verbose_name='UUID объекта')),
-                ('created', models.DateTimeField(db_index=True, default=utils.model_validators.get_current_time, editable=False, validators=[utils.model_validators.check_earlier_than_current], verbose_name='Время создания объекта')),
-                ('modified', models.DateTimeField(default=utils.model_validators.get_current_time, editable=False, validators=[utils.model_validators.check_earlier_than_current], verbose_name='Время изменения объекта')),
-                ('code_name', models.CharField(max_length=255, verbose_name='Название QR кода')),
-                ('direction', models.URLField(verbose_name='URL адрес, куда ведёт QR код')),
-                ('end_time', models.DateTimeField(blank=True, null=True, validators=[utils.model_validators.check_later_than_current], verbose_name='Время окончания работы QR кода')),
-                ('path_to_file', models.FilePathField(editable=False, verbose_name='Путь до QR Кода')),
-                ('code_hash', models.TextField(max_length=544, unique=True, verbose_name='Хэш из названия qr-кода и username пользователя')),
-                ('category', models.ForeignKey(blank=True, default='Категория не выбрана', null=True, on_delete=django.db.models.deletion.SET_DEFAULT, to='QR_generator.category', verbose_name='Категория QR кода')),
-                ('owner', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='Создатель QR кода')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="UUID объекта",
+                    ),
+                ),
+                (
+                    "created",
+                    models.DateTimeField(
+                        db_index=True,
+                        default=utils.model_validators.get_current_time,
+                        editable=False,
+                        validators=[utils.model_validators.check_earlier_than_current],
+                        verbose_name="Время создания объекта",
+                    ),
+                ),
+                (
+                    "modified",
+                    models.DateTimeField(
+                        default=utils.model_validators.get_current_time,
+                        editable=False,
+                        validators=[utils.model_validators.check_earlier_than_current],
+                        verbose_name="Время изменения объекта",
+                    ),
+                ),
+                (
+                    "code_name",
+                    models.CharField(max_length=255, verbose_name="Название QR кода"),
+                ),
+                (
+                    "direction",
+                    models.URLField(verbose_name="URL адрес, куда ведёт QR код"),
+                ),
+                (
+                    "end_time",
+                    models.DateTimeField(
+                        blank=True,
+                        null=True,
+                        validators=[utils.model_validators.check_later_than_current],
+                        verbose_name="Время окончания работы QR кода",
+                    ),
+                ),
+                (
+                    "path_to_file",
+                    models.FilePathField(
+                        editable=False, verbose_name="Путь до QR Кода"
+                    ),
+                ),
+                (
+                    "code_hash",
+                    models.TextField(
+                        max_length=544,
+                        unique=True,
+                        verbose_name="Хэш из названия qr-кода и username пользователя",
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        blank=True,
+                        default="Категория не выбрана",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_DEFAULT,
+                        to="QR_generator.category",
+                        verbose_name="Категория QR кода",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Создатель QR кода",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'QR код',
-                'verbose_name_plural': 'QR коды',
-                'db_table': 'QR_codes',
+                "verbose_name": "QR код",
+                "verbose_name_plural": "QR коды",
+                "db_table": "QR_codes",
             },
         ),
         migrations.CreateModel(
-            name='Transition',
+            name="Transition",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False, verbose_name='UUID объекта')),
-                ('created', models.DateTimeField(db_index=True, default=utils.model_validators.get_current_time, editable=False, validators=[utils.model_validators.check_earlier_than_current], verbose_name='Время создания объекта')),
-                ('modified', models.DateTimeField(default=utils.model_validators.get_current_time, editable=False, validators=[utils.model_validators.check_earlier_than_current], verbose_name='Время изменения объекта')),
-                ('user_agent', models.CharField(max_length=1000, verbose_name='User_agent пользователя, перешедшего по коду')),
-                ('code', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='QR_generator.qrcode', verbose_name='QR код, куда был осуществлён переход')),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="UUID объекта",
+                    ),
+                ),
+                (
+                    "created",
+                    models.DateTimeField(
+                        db_index=True,
+                        default=utils.model_validators.get_current_time,
+                        editable=False,
+                        validators=[utils.model_validators.check_earlier_than_current],
+                        verbose_name="Время создания объекта",
+                    ),
+                ),
+                (
+                    "modified",
+                    models.DateTimeField(
+                        default=utils.model_validators.get_current_time,
+                        editable=False,
+                        validators=[utils.model_validators.check_earlier_than_current],
+                        verbose_name="Время изменения объекта",
+                    ),
+                ),
+                (
+                    "user_agent",
+                    models.CharField(
+                        max_length=1000,
+                        verbose_name="User_agent пользователя, перешедшего по коду",
+                    ),
+                ),
+                (
+                    "code",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="QR_generator.qrcode",
+                        verbose_name="QR код, куда был осуществлён переход",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Переход по QR коду',
-                'verbose_name_plural': 'Переходы по QR кодам',
-                'db_table': 'Transitions',
+                "verbose_name": "Переход по QR коду",
+                "verbose_name_plural": "Переходы по QR кодам",
+                "db_table": "Transitions",
             },
         ),
         migrations.AddConstraint(
-            model_name='qrcode',
-            constraint=models.UniqueConstraint(fields=('code_name', 'owner'), name='unique_code_name_owner'),
+            model_name="qrcode",
+            constraint=models.UniqueConstraint(
+                fields=("code_name", "owner"), name="unique_code_name_owner"
+            ),
         ),
     ]

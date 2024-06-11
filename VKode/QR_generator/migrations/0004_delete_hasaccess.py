@@ -4,13 +4,12 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('QR_generator', '0003_hasaccess'),
+        ("QR_generator", "0003_hasaccess"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='HasAccess',
+            name="HasAccess",
         ),
     ]

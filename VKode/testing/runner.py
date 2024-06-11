@@ -4,13 +4,16 @@ from django.db.backends.base.base import BaseDatabaseWrapper
 from django.test.runner import DiscoverRunner
 from types import MethodType
 
+
 def prepare_db(self):
     self.connect()
-    self.connection.cursor().execute('CREATE SCHEMA IF NOT EXISTS competition_schema')
+    self.connection.cursor().execute("CREATE SCHEMA IF NOT EXISTS competition_schema")
 
 
 class PostgresSchemaRunner(DiscoverRunner):
-    def setup_databases(self, **kwargs: Any) -> list[tuple[BaseDatabaseWrapper, str, bool]]:
+    def setup_databases(
+        self, **kwargs: Any
+    ) -> list[tuple[BaseDatabaseWrapper, str, bool]]:
         for conn_name in connections:
             connection = connections[conn_name]
             connection.prepare_database = MethodType(prepare_db, connection)

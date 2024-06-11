@@ -10,10 +10,10 @@ def get_current_time() -> datetime:
 def check_earlier_than_current(dt: datetime) -> None:
     """Функция проверяет, является ли переданное время большим, чем текущее"""
     if dt > get_current_time():
-        raise ValidationError('The set time is later than the current')
+        raise ValidationError("The set time is later than the current")
 
 
 def check_later_than_current(dt: datetime) -> None:
     """Функция проверяет, является ли переданное время меньшим, чем текущее"""
     if dt < get_current_time():
-        raise ValidationError('The set time is earlier than the current')
+        raise ValidationError("The set time is earlier than the current")
