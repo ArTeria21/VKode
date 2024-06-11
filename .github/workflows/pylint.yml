@@ -11,46 +11,37 @@ jobs:
     - name: Установка Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.10.6'
+        python-version: '3.12.3'
     - name: Установка зависимостей
       run: |
         python -m pip install --upgrade pip
-        pip install flake8==3.9.0 wemake-python-styleguide==0.15.3 bandit==1.7.2
+        pip install ruff
     - name: Запуск Flake8
-      run: flake8 .
-
-  tests:
-    name: Tests
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:latest
-        env:
-          POSTGRES_DB: test
-          POSTGRES_USER: test
-          POSTGRES_PASSWORD: test
-        options: >-
-          --health-cmd="pg_isready"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-        ports:
+      run: ruff check
+  App-testing:
+      name: Tests
+      runs-on: ubuntu-latest
+      services:
+        postgres:
+          image: postgres
+          env:
+            POSTGRES_HOST: 127.0.0.1
+            POSTGRES_PORT: 5432
+            POSTGRES_USER: test
+            POSTGRES_PASSWORD: test
+          ports:
           - 5432:5432
-    steps:
-    - uses: actions/checkout@v2
-    - name: Установка Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.10.6'
-    - name: Установка зависимостей
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Ожидание Postgres
-      run: until pg_isready -h localhost -p 5432 > /dev/null; do echo "Waiting for database"; sleep 2; done
-    - name: Применение миграций
-      run: python manage.py migrate
-    - name: Запуск тестов
-      run: |
-        cd ./VKode/
-        coverage run --source='.' manage.py test testing
+      steps:
+      - uses: actions/checkout@v2
+      - name: Python installation
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12.3
+      - name: Dependencies installation
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Testing app
+        run: |
+          cd ./VKode/
+          coverage run --source='.' manage.py test testing
