@@ -16,7 +16,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install ruff
-    - name: Запуск Flake8
+    - name: Запуск Ruff
       run: ruff check
   App-testing:
       name: Tests
@@ -26,11 +26,11 @@ jobs:
           image: postgres
           env:
             POSTGRES_HOST: 127.0.0.1
-            POSTGRES_PORT: 5432
-            POSTGRES_USER: test
-            POSTGRES_PASSWORD: test
+            POSTGRES_PORT: 8888
+            POSTGRES_USER: VKode_admin
+            POSTGRES_PASSWORD: admin
           ports:
-          - 5432:5432
+          - 8888:5432
       steps:
       - uses: actions/checkout@v2
       - name: Python installation
