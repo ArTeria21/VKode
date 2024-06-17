@@ -29,10 +29,14 @@ Follow these simple steps to get VKode up and running on your machine:
 
 	```bash
 	docker-compose up -d
-	python manage.py makemigrations
-	python manage.py migrate
 	```
-
+	
+4. **Make migrations**
+    ```bash
+    cd ./VKode/
+	python manage.py migrate
+    ```
+    
 4. **Run the application**:
 
     ```bash
