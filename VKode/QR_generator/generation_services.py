@@ -10,6 +10,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.io as pio
 
+import os
 
 def count_qr_code_hash(username: str, code_name: str) -> int:
     return hashlib.sha3_256(f"{username} {code_name}".encode()).hexdigest()
@@ -34,9 +35,14 @@ def generate_qr_code(direction: str) -> str:
     random_number = randint(0, 1000)
 
     filename = f"{date}_{hours}_{minutes}_{seconds}_{random_number}_QR.png"
-    file_path = f"/home/artem/College/RPM/VKode/VKode/media/qr_codes/{filename}"
+    directory = os.path.join("media", "qr_codes")
+    os.makedirs(directory, exist_ok=True)  # Создать директорию, если она не существует
+    file_path = os.path.join(directory, filename)
+    
+    print(f"Saving QR code to: {file_path}")  # Вывод пути для отладки
     qrcode.save(file_path, scale=10)
     return file_path
+
 
 
 def create_redirect_code(username, code_name) -> tuple[str]:
