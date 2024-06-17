@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_vk
+    environment:
+      POSTGRES_DB: VKode_base
+      POSTGRES_USER: VKode_admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "8888:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

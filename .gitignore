@@ -4,3 +4,4 @@ qr_codes
 __pycache__
 .ruff_cache
 .coverage
+.pytest_cache
